@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "frameworkVersion": "1.0.0",
+  "entries": [
+    {
+      "adapterId": "t3-0.0.33",
+      "t3Version": "0.0.33",
+      "t3Commit": "78f462c4e18c8ea5e5037dc916389a3b72246025",
+      "observedTags": ["v0.0.34-nightly.20260810.1059"]
+    },
+    {
+      "adapterId": "t3-0.0.33",
+      "t3Version": "0.0.33",
+      "t3Commit": "560d4a4560ddb5f42c8f8e0e35fa7827c0e46f80",
+      "observedTags": ["v0.0.34-nightly.20260812.1072"]
+    }
+  ]
+}

@@ -1,0 +1,329 @@
+.t3pets-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+}
+
+.t3pets-sprite {
+  position: absolute;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  appearance: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  cursor: grab;
+  image-rendering: pixelated;
+  touch-action: none;
+}
+
+.t3pets-sprite:active {
+  cursor: grabbing;
+}
+
+.t3pets-sprite:focus-visible {
+  outline: 2px solid var(--ring, currentColor);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t3pets-sprite {
+    transition: none;
+  }
+}
+
+.t3pets-settings {
+  width: min(100%, 860px);
+  margin: 0 auto;
+  color: var(--foreground, #18181b);
+}
+
+.t3pets-settings h1,
+.t3pets-settings h2,
+.t3pets-settings p {
+  margin: 0;
+}
+
+.t3pets-settings-header,
+.t3pets-install-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.t3pets-settings-header {
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border, #e4e4e7);
+}
+
+.t3pets-settings-header h1 {
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.t3pets-settings-header p,
+.t3pets-install-row p,
+.t3pets-card-copy p,
+.t3pets-empty {
+  margin-top: 6px;
+  color: var(--muted-foreground, #71717a);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.t3pets-switch-row {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 550;
+}
+
+.t3pets-switch-row input {
+  width: 34px;
+  height: 20px;
+  accent-color: var(--primary, #18181b);
+}
+
+.t3pets-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.t3pets-preferences {
+  border-bottom: 1px solid var(--border, #e4e4e7);
+}
+
+.t3pets-preference-row {
+  display: flex;
+  min-height: 70px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.t3pets-preference-row + .t3pets-preference-row {
+  border-top: 1px solid var(--border, #e4e4e7);
+}
+
+.t3pets-preference-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.t3pets-preference-copy strong {
+  font-size: 14px;
+  font-weight: 620;
+}
+
+.t3pets-preference-copy > span {
+  color: var(--muted-foreground, #71717a);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.t3pets-size-control {
+  display: grid;
+  min-width: min(240px, 42vw);
+  grid-template-columns: minmax(140px, 1fr) 44px;
+  align-items: center;
+  gap: 12px;
+}
+
+.t3pets-size-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary, #18181b);
+  cursor: ew-resize;
+}
+
+.t3pets-size-value {
+  color: var(--foreground, #18181b);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 620;
+  text-align: right;
+}
+
+.t3pets-preference-row input[role="switch"] {
+  width: 34px;
+  height: 20px;
+  flex: 0 0 auto;
+  accent-color: var(--primary, #18181b);
+}
+
+.t3pets-preference-row input:focus-visible {
+  outline: 2px solid var(--ring, currentColor);
+  outline-offset: 2px;
+}
+
+.t3pets-card {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border, #e4e4e7);
+}
+
+.t3pets-thumbnail-shell {
+  display: grid;
+  width: 80px;
+  height: 80px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border, #e4e4e7);
+  border-radius: 16px 16px 16px 5px;
+  background: var(--muted, #f4f4f5);
+}
+
+.t3pets-thumbnail-shell img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.t3pets-thumbnail-placeholder {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--border, #e4e4e7);
+}
+
+.t3pets-card-copy {
+  min-width: 0;
+}
+
+.t3pets-card-copy h2,
+.t3pets-install-row h2 {
+  font-size: 15px;
+  font-weight: 620;
+}
+
+.t3pets-card-copy span {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted-foreground, #71717a);
+  font-size: 12px;
+}
+
+.t3pets-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.t3pets-primary-button,
+.t3pets-secondary-button {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 13px;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 560;
+  cursor: pointer;
+}
+
+.t3pets-primary-button {
+  border: 1px solid var(--primary, #18181b);
+  color: var(--primary-foreground, #fff);
+  background: var(--primary, #18181b);
+}
+
+.t3pets-secondary-button {
+  border: 1px solid var(--border, #e4e4e7);
+  color: var(--foreground, #18181b);
+  background: var(--background, #fff);
+}
+
+.t3pets-primary-button:disabled,
+.t3pets-secondary-button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.t3pets-primary-button:focus-visible,
+.t3pets-secondary-button:focus-visible,
+.t3pets-switch-row input:focus-visible {
+  outline: 2px solid var(--ring, currentColor);
+  outline-offset: 2px;
+}
+
+.t3pets-install-row {
+  padding-top: 24px;
+}
+
+.t3pets-install-row input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.t3pets-empty {
+  padding: 36px 0;
+  text-align: center;
+}
+
+.t3pets-status {
+  min-height: 20px;
+  margin-top: 14px;
+  color: var(--muted-foreground, #71717a);
+  font-size: 13px;
+}
+
+@media (max-width: 560px) {
+  .t3pets-settings-header,
+  .t3pets-install-row {
+    align-items: flex-start;
+  }
+
+  .t3pets-card {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .t3pets-thumbnail-shell {
+    width: 64px;
+    height: 64px;
+  }
+
+  .t3pets-thumbnail-shell img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .t3pets-card-actions {
+    grid-column: 2;
+    flex-wrap: wrap;
+  }
+
+  .t3pets-preference-row {
+    gap: 16px;
+  }
+
+  .t3pets-size-row {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 0;
+  }
+
+  .t3pets-size-control {
+    width: 100%;
+    min-width: 0;
+  }
+}

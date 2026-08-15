@@ -1,0 +1,54 @@
+{
+  "name": "t3code-pets-monorepo",
+  "version": "1.0.0",
+  "description": "Version-gated animated pets for T3 Code source checkouts",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaymondWKWong/t3code-pets.git"
+  },
+  "type": "module",
+  "packageManager": "pnpm@11.10.0",
+  "engines": {
+    "node": "^24.13.1"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "build:release": "pnpm build && tsx scripts/build-release-package.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit && pnpm -r typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@babel/parser": "7.29.8",
+    "@eslint/js": "^10.0.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@tsdown/css": "0.22.14",
+    "@types/node": "24.12.4",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@zip.js/zip.js": "2.8.36",
+    "ast-types": "^0.16.1",
+    "eslint": "^10.0.0",
+    "fake-indexeddb": "^6.2.5",
+    "jsdom": "^28.0.0",
+    "jsonc-parser": "3.3.1",
+    "prettier": "^3.9.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "recast": "^0.23.11",
+    "sharp": "0.35.3",
+    "tsdown": "0.22.14",
+    "tsx": "^4.20.6",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.66.0",
+    "vitest": "^4.1.10"
+  }
+}

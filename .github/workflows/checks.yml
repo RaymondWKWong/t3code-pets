@@ -1,0 +1,29 @@
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  quality:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.13.1
+      - run: corepack enable
+      - run: corepack pnpm@11.10.0 install --frozen-lockfile
+      - run: corepack pnpm@11.10.0 format:check
+      - run: corepack pnpm@11.10.0 lint
+      - run: corepack pnpm@11.10.0 typecheck
+      - run: corepack pnpm@11.10.0 test
+      - run: corepack pnpm@11.10.0 build
+      - run: corepack pnpm@11.10.0 tsx scripts/verify-romeo-package.ts
+      - run: corepack pnpm@11.10.0 build:release
+      - run: corepack pnpm@11.10.0 tsx scripts/generate-support-table.ts --check

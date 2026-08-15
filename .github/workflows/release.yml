@@ -1,0 +1,89 @@
+name: Release artifacts
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.13.1
+      - run: corepack enable
+      - run: corepack pnpm@11.10.0 install --frozen-lockfile
+      - run: corepack pnpm@11.10.0 tsx scripts/check-release-tag.ts "$GITHUB_REF_NAME" "$(node -p \"require('./package.json').version\")"
+      - run: corepack pnpm@11.10.0 format:check
+      - run: corepack pnpm@11.10.0 lint
+      - run: corepack pnpm@11.10.0 typecheck
+      - run: corepack pnpm@11.10.0 test
+      - run: corepack pnpm@11.10.0 build
+      - run: corepack pnpm@11.10.0 tsx scripts/verify-romeo-package.ts
+      - run: corepack pnpm@11.10.0 build:release
+      - run: corepack pnpm@11.10.0 tsx scripts/generate-support-table.ts --check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-assets
+          path: |
+            dist/t3code-pets-*.tgz
+            dist/t3code-pets.tgz
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 1
+
+  smoke:
+    needs: validate
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: T3 20260810.1059 on Linux
+            os: ubuntu-latest
+            commit: 78f462c4e18c8ea5e5037dc916389a3b72246025
+          - name: T3 20260812.1072 on Linux
+            os: ubuntu-latest
+            commit: 560d4a4560ddb5f42c8f8e0e35fa7827c0e46f80
+          - name: T3 20260812.1072 on Windows
+            os: windows-latest
+            commit: 560d4a4560ddb5f42c8f8e0e35fa7827c0e46f80
+          - name: T3 20260812.1072 on macOS
+            os: macos-latest
+            commit: 560d4a4560ddb5f42c8f8e0e35fa7827c0e46f80
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.13.1
+      - run: corepack enable
+      - run: corepack pnpm@11.10.0 install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-assets
+          path: dist
+      - run: git clone https://github.com/pingdotgg/t3code.git ../t3code-fixture
+      - run: git -C ../t3code-fixture checkout ${{ matrix.commit }}
+      - run: npx --yes --package=./dist/t3code-pets.tgz t3code-pets install --t3 ../t3code-fixture
+      - run: npx --yes --package=./dist/t3code-pets.tgz t3code-pets doctor --t3 ../t3code-fixture
+      - run: npx --yes --package=./dist/t3code-pets.tgz t3code-pets uninstall --t3 ../t3code-fixture
+      - run: corepack pnpm@11.10.0 tsx scripts/assert-clean-checkout.ts ../t3code-fixture
+
+  publish:
+    needs: [validate, smoke]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-assets
+          path: dist
+      - run: gh release create "$GITHUB_REF_NAME" dist/t3code-pets-*.tgz dist/t3code-pets.tgz dist/SHA256SUMS.txt --verify-tag --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,23 @@
+{
+  "name": "@t3code-pets/core",
+  "version": "1.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "tsdown src/index.ts --format esm --dts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@zip.js/zip.js": "^2.8.5",
+    "image-size": "^2.0.2",
+    "zod": "^4.1.12"
+  }
+}

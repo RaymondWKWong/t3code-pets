@@ -1,0 +1,10 @@
+{
+  "name": "@t3tools/web",
+  "version": "0.0.33",
+  "private": true,
+  "dependencies": {
+    "@tanstack/react-router": "catalog:",
+    "lucide-react": "^0.468.0",
+    "react": "19.2.6"
+  }
+}

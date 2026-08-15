@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "romeo-golden-british-shorthair",
+  "displayName": "Romeo - Golden British Shorthair",
+  "description": "Romeo, the golden British Shorthair, supports you throughout your work as a faithful workspace companion.",
+  "petVersion": "1.0.0",
+  "spriteVersionNumber": 2,
+  "atlases": {
+    "left": "spritesheet-left.webp",
+    "right": "spritesheet-right.webp"
+  },
+  "thumbnail": "thumbnail.webp",
+  "timingProfile": "codex-v2"
+}

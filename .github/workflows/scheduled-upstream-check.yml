@@ -1,0 +1,32 @@
+name: Detect upstream T3 changes
+
+on:
+  schedule:
+    - cron: "17 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: upstream
+        run: echo "sha=$(git ls-remote https://github.com/pingdotgg/t3code.git refs/heads/main | cut -f1)" >> "$GITHUB_OUTPUT"
+      - id: catalog
+        env:
+          UPSTREAM_SHA: ${{ steps.upstream.outputs.sha }}
+        run: node -e 'const c=require("./compatibility/compatibility.json"); process.exit(c.entries.some(e=>e.t3Commit===process.env.UPSTREAM_SHA)?0:1)'
+        continue-on-error: true
+      - if: steps.catalog.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UPSTREAM_SHA: ${{ steps.upstream.outputs.sha }}
+        run: |
+          title="Test T3 upstream ${UPSTREAM_SHA:0:8} compatibility"
+          body="Upstream main is now \`${UPSTREAM_SHA}\`, which is not in \`compatibility.json\`. Run the exact adapter inspection and clean-checkout release gate; do not mark it supported automatically."
+          existing=$(gh issue list --state open --search 'Test T3 upstream compatibility in:title' --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then gh issue edit "$existing" --title "$title" --body "$body"; else gh issue create --title "$title" --body "$body"; fi

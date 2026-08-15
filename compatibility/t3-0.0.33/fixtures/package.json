@@ -1,0 +1,5 @@
+{
+  "name": "@t3tools/monorepo",
+  "private": true,
+  "packageManager": "pnpm@11.10.0"
+}

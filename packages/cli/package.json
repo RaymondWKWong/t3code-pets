@@ -1,0 +1,31 @@
+{
+  "name": "t3code-pets",
+  "version": "1.0.0",
+  "type": "module",
+  "files": [
+    "dist",
+    "payload"
+  ],
+  "bin": {
+    "t3code-pets": "./dist/cli.mjs"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/cli.d.mts",
+      "import": "./dist/cli.mjs"
+    }
+  },
+  "scripts": {
+    "build": "tsdown src/cli.ts --format esm --dts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@babel/parser": "7.29.8",
+    "ast-types": "^0.16.1",
+    "jsonc-parser": "3.3.1",
+    "recast": "^0.23.11"
+  },
+  "devDependencies": {
+    "@types/node": "24.12.4"
+  }
+}

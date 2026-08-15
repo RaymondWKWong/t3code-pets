@@ -1,0 +1,26 @@
+{
+  "name": "@t3code-pets/react",
+  "version": "1.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./pets.css": "./dist/style.css"
+  },
+  "scripts": {
+    "build": "tsdown src/index.ts src/pets.css --format esm --dts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@t3code-pets/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  }
+}

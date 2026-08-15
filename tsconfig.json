@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [
+    "compatibility/**/*.ts",
+    "pets/**/*.ts",
+    "scripts/**/*.ts",
+    "tests/**/*.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": ["compatibility/**/fixtures/**", "compatibility/**/templates/**"]
+}
