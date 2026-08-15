@@ -17,7 +17,7 @@ jobs:
           node-version: 24.13.1
       - run: corepack enable
       - run: corepack pnpm@11.10.0 install --frozen-lockfile
-      - run: corepack pnpm@11.10.0 tsx scripts/check-release-tag.ts "$GITHUB_REF_NAME" "$(node -p \"require('./package.json').version\")"
+      - run: corepack pnpm@11.10.0 tsx scripts/check-release-tag.ts "$GITHUB_REF_NAME" "$(node -p 'require("./package.json").version')"
       - run: corepack pnpm@11.10.0 format:check
       - run: corepack pnpm@11.10.0 lint
       - run: corepack pnpm@11.10.0 typecheck
