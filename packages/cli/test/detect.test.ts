@@ -1,5 +1,5 @@
 import { execFile } from "node:child_process";
-import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { promisify } from "node:util";
@@ -20,12 +20,12 @@ afterEach(async () => {
 });
 
 describe("detectT3Checkout", () => {
-  it("detects the monorepo, web version, package manager, and HEAD", async () => {
+  it("detects the canonical root, web version, package manager, and HEAD", async () => {
     const root = await createCheckout();
     const detected = await detectT3Checkout(root);
 
     expect(detected).toMatchObject({
-      root,
+      root: await realpath(root),
       t3Version: "0.0.33",
       packageManager: "pnpm@11.10.0",
     });

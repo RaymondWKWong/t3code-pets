@@ -1,0 +1,5 @@
+* text=auto eol=lf
+
+*.webp binary
+*.t3pet binary
+*.tgz binary
