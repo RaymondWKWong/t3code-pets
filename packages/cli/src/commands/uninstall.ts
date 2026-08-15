@@ -207,7 +207,7 @@ async function runPostUninstall(
       [...corepack.prefixArguments, checkout.packageManager, ...arguments_],
       checkout.root,
     );
-  await invoke(["install", "--frozen-lockfile=false"]);
+  await invoke(["install", "--frozen-lockfile"]);
   await invoke(["--filter", "@t3tools/web", "build"]);
   await invoke(["--filter", "@t3tools/web", "typecheck"]);
 }

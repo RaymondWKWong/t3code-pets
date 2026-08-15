@@ -55,6 +55,52 @@ describe("uninstallCommand", () => {
     });
   });
 
+  it("keeps the restored lockfile immutable during post-uninstall validation", async () => {
+    const root = await mkdtemp(join(tmpdir(), "t3code-pets-uninstall-"));
+    temporaryDirectories.push(root);
+    const lockfile = join(root, "pnpm-lock.yaml");
+    await writeFile(lockfile, "before\n");
+    await runTransaction(
+      root,
+      [
+        {
+          kind: "modify",
+          path: "pnpm-lock.yaml",
+          expectedBeforeSha256: sha256Text("before\n"),
+          content: "after\n",
+        },
+      ],
+      async () => undefined,
+      {
+        frameworkVersion: "1.0.0",
+        adapterId: "t3-0.0.33",
+        t3Version: "0.0.33",
+        t3Commit: "a".repeat(40),
+      },
+    );
+
+    await expect(
+      uninstallCommand(
+        { t3Path: root },
+        {
+          detectCheckout: async () => ({
+            root,
+            t3Version: "0.0.33",
+            t3Commit: "a".repeat(40),
+            packageManager: "pnpm@11.10.0",
+          }),
+          runProcess: async (_executable, arguments_) => {
+            if (arguments_.includes("--frozen-lockfile=false")) {
+              await writeFile(lockfile, "rewritten\n");
+            }
+            return { stdout: "", stderr: "" };
+          },
+        },
+      ),
+    ).resolves.toBeUndefined();
+    await expect(readFile(lockfile, "utf8")).resolves.toBe("before\n");
+  });
+
   it("stops before mutation when an owned file changed", async () => {
     const root = await mkdtemp(join(tmpdir(), "t3code-pets-uninstall-"));
     temporaryDirectories.push(root);
