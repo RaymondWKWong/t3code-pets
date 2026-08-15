@@ -16,6 +16,8 @@ jobs:
             commit: 78f462c4e18c8ea5e5037dc916389a3b72246025
           - name: T3 nightly 20260812.1072
             commit: 560d4a4560ddb5f42c8f8e0e35fa7827c0e46f80
+          - name: T3 main f0719072
+            commit: f0719072a1c6435b5a91243afc57bc8bf1f3e2b6
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

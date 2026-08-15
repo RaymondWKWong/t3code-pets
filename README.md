@@ -15,7 +15,7 @@ Stop every T3 development process using the checkout before installing, updating
 
 ## Quick start
 
-For a new checkout of the newest supported T3 release:
+For a new checkout of the newest supported tagged T3 release:
 
 ```powershell
 git clone --depth 1 --branch v0.0.34-nightly.20260812.1072 https://github.com/pingdotgg/t3code.git t3code
