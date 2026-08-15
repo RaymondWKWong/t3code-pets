@@ -84,6 +84,6 @@ jobs:
         with:
           name: release-assets
           path: dist
-      - run: gh release create "$GITHUB_REF_NAME" dist/t3code-pets-*.tgz dist/t3code-pets.tgz dist/SHA256SUMS.txt --verify-tag --generate-notes
+      - run: gh release create "$GITHUB_REF_NAME" dist/t3code-pets-*.tgz dist/t3code-pets.tgz dist/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --verify-tag --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}
