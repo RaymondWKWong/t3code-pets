@@ -6,6 +6,7 @@ Support is exact and fail-closed. A listed version is supported only at the list
 | ---------- | ---------- | ----------- | ------------ | ----------------------------- |
 | 0.0.33     | `78f462c4` | `t3-0.0.33` | 1.0.0        | v0.0.34-nightly.20260810.1059 |
 | 0.0.33     | `560d4a45` | `t3-0.0.33` | 1.0.0        | v0.0.34-nightly.20260812.1072 |
+| 0.0.33     | `f0719072` | `t3-0.0.33` | 1.0.0        |                               |
 
 ## Maintenance workflow
 

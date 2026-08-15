@@ -18,7 +18,8 @@ const fixtureRoot = join(
 );
 const temporaryDirectories: string[] = [];
 const supportedCommit = "78f462c4e18c8ea5e5037dc916389a3b72246025";
-const currentSupportedCommit = "560d4a4560ddb5f42c8f8e0e35fa7827c0e46f80";
+const previousSupportedCommit = "560d4a4560ddb5f42c8f8e0e35fa7827c0e46f80";
+const currentSupportedCommit = "f0719072a1c6435b5a91243afc57bc8bf1f3e2b6";
 
 afterEach(async () => {
   await Promise.all(
@@ -40,16 +41,19 @@ describe("selectCompatibilityAdapter", () => {
     ).resolves.toMatchObject({ id: "t3-0.0.33" });
   });
 
-  it("selects the current exact inspected T3 release", async () => {
-    const root = await createFixtureCheckout();
-    await expect(
-      selectCompatibilityAdapter({
-        root,
-        t3Version: "0.0.33",
-        t3Commit: currentSupportedCommit,
-      }),
-    ).resolves.toMatchObject({ id: "t3-0.0.33" });
-  });
+  it.each([previousSupportedCommit, currentSupportedCommit])(
+    "selects inspected T3 release %s",
+    async (t3Commit) => {
+      const root = await createFixtureCheckout();
+      await expect(
+        selectCompatibilityAdapter({
+          root,
+          t3Version: "0.0.33",
+          t3Commit,
+        }),
+      ).resolves.toMatchObject({ id: "t3-0.0.33" });
+    },
+  );
 
   it.each([
     ["0.0.32", supportedCommit],
